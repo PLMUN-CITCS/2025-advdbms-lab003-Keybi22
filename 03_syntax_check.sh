@@ -10,8 +10,16 @@ if ! command -v sqlfluff &> /dev/null; then
   exit 1
 fi
 
+# Check if the directory exists
+if [ ! -d "$directory" ]; then
+  echo "Error: Directory $directory does not exist."
+  exit 1
+fi
+
 for file in "${files[@]}"; do
   filepath="$directory/$file"
+  
+  # Check if the file exists
   if [ ! -f "$filepath" ]; then
     echo "Warning: $filepath does not exist. Skipping file."
     continue  # Skip to the next file
@@ -27,9 +35,8 @@ for file in "${files[@]}"; do
     echo "$filepath: Syntax OK"
   else
     echo "$filepath: Syntax error(s) found:"
-    echo "$output"  # Print the sqlfluff output
-    # Exit with an error if you want the script to stop on errors:
-    exit 1
+    echo "$output"
+    exit 1  # Exit with error code if syntax issues are found
   fi
 done
 
