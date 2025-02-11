@@ -8,14 +8,14 @@ files=("create_and_use_db.sql" "drop_db.sql") # Array of filenames
 if ! command -v sqlfluff &> /dev/null; then
   echo "Error: sqlfluff is not installed. Please install it (e.g., 'pip install sqlfluff')."
   exit 1
-fi
+if
 
 for file in "${files[@]}"; do
   filepath="$directory/$file"
   if [ ! -f "$filepath" ]; then
     echo "Error: $filepath does not exist."
     exit 1  # Skip to the next file
-  fi
+  if
 
   echo "Checking syntax for $filepath..."
 
@@ -30,7 +30,7 @@ for file in "${files[@]}"; do
     echo "$output"  # Print the sqlfluff output
     # Optional: Exit with an error if you want the script to stop on errors:
     exit 1
-  fi
+  if
 done
 
 exit 0 # Script finished successfully
